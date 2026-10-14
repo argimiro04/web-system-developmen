@@ -1,0 +1,120 @@
+/* Argimiro */
+/* Fondo, fuente, header, main y footer */
+
+
+
+
+
+/* -1. LISTAS */
+
+/* Menú del header: horizontal y sin viñetas  */
+.menu {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.menu-item {
+  margin: 0 10px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+/* Listas de contenido */
+ul,
+ol {
+  padding: 15px 15px 15px 40px;
+  background-color: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 6px;
+}
+
+ul {
+  list-style-type: square;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+li {
+  padding: 6px;
+  margin-bottom: 5px;
+  color: #1E3A5F;
+  border: 1px solid #EEEEEE;
+  background-color: #F7F9FC;
+}
+
+li:last-of-type {
+  margin-bottom: 0;
+}
+
+/* 2. ENLACES */
+
+a:link {
+  color: #1E3A5F;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #6B4C9A;
+}
+
+a:hover {
+  color: #F28C28;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #C0392B;
+}
+
+/* Enlaces del menú del header: blancos y naranjas al pasar */
+.menu-link:link,
+.menu-link:visited {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.menu-link:hover {
+  color: #F28C28;
+  text-decoration: underline;
+}
+
+.menu-link:active {
+  color: #FFD9B3;
+}
+
+/*  3. TARJETAS */
+
+/* Contenedor: tarjetas en fila con flexbox */
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Tarjeta: fondo, padding, border-radius y sombra */
+.card {
+  width: 300px;
+  margin: 15px;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px #BBBBBB;
+}
+
+/* Imagen dentro de la tarjeta */
+.card-img {
+  display: block;
+  width: 300px;
+  height: 300px;
+}
