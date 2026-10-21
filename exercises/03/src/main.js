@@ -7,15 +7,41 @@ import { validateExpense } from './validation.js';
 import { addExpense } from './expenses.js';
 import { render } from './render.js';
 
+// Referencias a los elementos del contrato (ver CLAUDE.md).
 const form = document.querySelector('#expense-form');
+const nameInput = form.elements['expense-name'];
+const amountInput = form.elements['expense-amount'];
+const errorMessage = document.querySelector('#error');
 
-// TODO (Persona A): añadir el listener 'submit' al formulario:
-//   1. preventDefault() para que la página no se recargue.
-//   2. Leer los valores de expense-name (trim) y expense-amount (Number).
-//   3. validateExpense(name, amount):
-//      - si no es válido, mostrar el error en #error;
-//      - si es válido, limpiar #error, llamar a addExpense() y render(),
-//        limpiar los inputs y devolver el foco al nombre.
+// Muestra (o borra, si msg es '') el mensaje de error.
+const showError = (msg) => {
+  errorMessage.textContent = msg;
+};
+
+form.addEventListener('submit', (event) => {
+  // Evita que el navegador envíe el formulario y recargue la página.
+  event.preventDefault();
+
+  // Leemos los valores: el nombre sin espacios a los lados y el importe convertido a número.
+  const name = nameInput.value.trim();
+  const amount = Number(amountInput.value);
+
+  // Destructuring del objeto que devuelve la validación.
+  const { valid, error } = validateExpense(name, amount);
+
+  if (!valid) {
+    showError(error);
+    return;
+  }
+
+  showError('');
+  addExpense(name, amount);
+  render();
+
+  // Dejamos el formulario listo para el siguiente gasto.
+  form.reset();
+  nameInput.focus();
+});
 
 // Pintado inicial (lista vacía y total 0.00).
 render();
