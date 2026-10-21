@@ -3,7 +3,9 @@
  * Conecta el formulario con la validación (Persona A) y con los datos y el pintado (Persona B).
  */
 import './style.css';
-import { validateExpense } from './validation.js';
+// Default import (sin llaves): validation.js usa export default.
+import validateExpense from './validation.js';
+// Named imports (con llaves): el nombre tiene que coincidir con el que se exporta.
 import { addExpense } from './expenses.js';
 import { render } from './render.js';
 
