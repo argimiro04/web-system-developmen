@@ -1,7 +1,11 @@
 /**
  * Estado de la aplicación: lista de gastos.
  * Cada gasto tiene la forma { id, name, amount }.
+ *
+ * El array es `const`: no se puede reasignar, pero sí modificar su contenido (push).
+ * Solo se exporta a través de funciones, así nadie de fuera puede tocarlo directamente.
  */
+const expenses = [];
 
 /**
  * Añade un gasto a la lista.
@@ -12,7 +16,10 @@
  * @returns {void}
  */
 export function addExpense(name, amount) {
-  // TODO (Persona B): crear el objeto { id, name, amount } y guardarlo en el array.
+  // crypto.randomUUID() genera un identificador único (lo usaremos como clave de cada gasto).
+  // { name, amount } es la forma abreviada de { name: name, amount: amount }.
+  const expense = { id: crypto.randomUUID(), name, amount };
+  expenses.push(expense);
 }
 
 /**
@@ -22,8 +29,9 @@ export function addExpense(name, amount) {
  *   Una COPIA del array (con spread), no el array interno.
  */
 export function getExpenses() {
-  // TODO (Persona B): devolver una copia del array de gastos.
-  return [];
+  // Spread: crea un array nuevo con los mismos elementos.
+  // Quien lo reciba puede ordenarlo o modificarlo sin estropear nuestro estado.
+  return [...expenses];
 }
 
 /**
@@ -32,6 +40,6 @@ export function getExpenses() {
  * @returns {number} Suma de todos los importes (0 si no hay gastos).
  */
 export function getTotal() {
-  // TODO (Persona B): sumar los importes con reduce.
-  return 0;
+  // reduce recorre el array acumulando la suma; empieza en 0, así que con la lista vacía devuelve 0.
+  return expenses.reduce((sum, { amount }) => sum + amount, 0);
 }
