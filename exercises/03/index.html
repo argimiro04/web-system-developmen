@@ -11,16 +11,19 @@
       CONTRATO COMÚN: los id y name de este archivo los usan Persona A y Persona B.
       No cambiarlos sin avisar al compañero (ver CLAUDE.md).
     -->
-    <main>
-      <h1>Budget Tracker</h1>
+    <main class="card">
+      <header>
+        <h1>Budget Tracker</h1>
+        <p class="subtitle">Apunta tus gastos y controla cuánto llevas gastado.</p>
+      </header>
 
       <form id="expense-form" novalidate>
-        <label>
-          Gasto
-          <input type="text" name="expense-name" placeholder="Ej.: Café" />
+        <label class="field">
+          <span>Gasto</span>
+          <input type="text" name="expense-name" placeholder="Ej.: Café" autocomplete="off" />
         </label>
-        <label>
-          Importe (€)
+        <label class="field">
+          <span>Importe (€)</span>
           <input type="number" name="expense-amount" step="0.01" placeholder="Ej.: 2.50" />
         </label>
         <button type="submit">Añadir</button>
@@ -28,9 +31,12 @@
 
       <p id="error" role="alert"></p>
 
-      <ul id="expense-list"></ul>
+      <section class="expenses">
+        <h2>Gastos</h2>
+        <ul id="expense-list"></ul>
+      </section>
 
-      <p>Total gastado: <span id="total">0.00</span> €</p>
+      <p class="total">Total gastado: <span id="total">0.00</span> €</p>
     </main>
 
     <script type="module" src="/src/main.js"></script>
