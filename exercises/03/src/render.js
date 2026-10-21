@@ -1,17 +1,17 @@
-import { getExpenses, getTotal } from './expenses.js';
+import { getExpenses, getTotal, removeExpense } from './expenses.js';
 
 // Referencias a los elementos del contrato (ver CLAUDE.md).
-const list = document.querySelector('#expense-list');
-const total = document.querySelector('#total');
+const list = document.getElementById('expense-list');
+const total = document.getElementById('total');
 
 /**
- * Crea el <li> de un gasto: el nombre a la izquierda y el importe a la derecha.
+ * Crea el <li> de un gasto: el nombre, el importe y un botón para borrarlo.
  * Usa textContent, que trata el texto como texto (nunca como HTML): así evitamos XSS.
  *
- * @param {{ id: string|number, name: string, amount: number }} expense
+ * @param {{ id: number, name: string, amount: number }} expense
  * @returns {HTMLLIElement}
  */
-const createExpenseItem = ({ name, amount }) => {
+const createExpenseItem = ({ id, name, amount }) => {
   const li = document.createElement('li');
 
   const nameSpan = document.createElement('span');
@@ -20,7 +20,22 @@ const createExpenseItem = ({ name, amount }) => {
   const amountSpan = document.createElement('span');
   amountSpan.textContent = `${amount.toFixed(2)} €`;
 
-  li.append(nameSpan, amountSpan);
+  // Botón de borrar: type="button" para que no envíe el formulario.
+  const deleteButton = document.createElement('button');
+  deleteButton.setAttribute('type', 'button');
+  deleteButton.classList.add('delete-btn');
+  deleteButton.textContent = 'Borrar';
+  deleteButton.setAttribute('aria-label', `Borrar ${name}`);
+
+  // Al hacer clic borramos este gasto (la arrow function "recuerda" su id) y repintamos.
+  deleteButton.addEventListener('click', () => {
+    removeExpense(id);
+    render();
+  });
+
+  li.appendChild(nameSpan);
+  li.appendChild(amountSpan);
+  li.appendChild(deleteButton);
   return li;
 };
 
@@ -34,12 +49,13 @@ const createExpenseItem = ({ name, amount }) => {
  * @returns {void}
  */
 export function render() {
-  // 1. Vaciamos la lista: replaceChildren() sin argumentos elimina todos los hijos.
-  list.replaceChildren();
+  // 1. Vaciamos la lista. innerHTML solo se usa con '' (sin datos del usuario).
+  list.innerHTML = '';
 
-  // 2. map transforma cada gasto en un <li>; luego los añadimos todos a la lista de una vez.
-  const items = getExpenses().map(createExpenseItem);
-  list.append(...items);
+  // 2. Por cada gasto creamos su <li> y lo colgamos de la lista.
+  getExpenses().forEach((expense) => {
+    list.appendChild(createExpenseItem(expense));
+  });
 
   // 3. El total siempre con 2 decimales (20 → "20.00").
   total.textContent = getTotal().toFixed(2);

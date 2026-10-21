@@ -9,7 +9,10 @@ Permite añadir gastos con nombre e importe, los muestra en una lista y calcula 
 - Validación: el nombre no puede estar vacío y el importe tiene que ser un número mayor que 0.
   Si algo falla, se muestra un mensaje en `#error`.
 - La lista de gastos se pinta dinámicamente con JavaScript, en el orden en que se añaden.
-- El total se recalcula con cada gasto y se muestra con 2 decimales en `#total`.
+- Cada gasto tiene un botón **Borrar** para quitarlo de la lista.
+- El total se recalcula con cada cambio y se muestra con 2 decimales en `#total`.
+- Los gastos se guardan en `localStorage` como JSON, así que siguen ahí al recargar la página.
+  Si lo guardado está corrupto, la app arranca con la lista vacía y lo indica en la consola.
 - La página no se recarga al enviar el formulario.
 
 ## Cómo arrancarlo
@@ -33,8 +36,8 @@ exercises/03/
 └── src/
     ├── main.js         → punto de entrada: escucha el submit y conecta los módulos
     ├── validation.js   → validateExpense(name, amount)
-    ├── expenses.js     → estado: addExpense, getExpenses, getTotal
-    ├── render.js       → render(): pinta la lista y el total
+    ├── expenses.js     → estado: addExpense, removeExpense, getExpenses, getTotal (+ localStorage)
+    ├── render.js       → render(): pinta la lista (con botón de borrar) y el total
     └── style.css       → estilos
 ```
 
@@ -45,6 +48,10 @@ usuario escribe → submit (#expense-form) → main.js lee y limpia valores
   → validateExpense(name, amount)
       ├─ no válido → mensaje en #error
       └─ válido    → addExpense(name, amount) → render() → lista + #total actualizados
+
+clic en "Borrar" → removeExpense(id) → render()
+addExpense / removeExpense → guardan la lista en localStorage (JSON.stringify)
+al cargar la página → expenses.js lee localStorage (JSON.parse) → render() inicial
 ```
 
 ## Reparto
