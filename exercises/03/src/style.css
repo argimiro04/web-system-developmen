@@ -111,9 +111,31 @@ button:hover {
 #expense-list li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 0;
   border-bottom: 1px solid var(--border);
+}
+
+/* El primer elemento (el nombre) ocupa el hueco libre: importe y botón quedan a la derecha. */
+#expense-list li > :first-child {
+  flex: 1;
+}
+
+/* ===== Botón de borrar (lo crea render.js; la clase es parte del contrato) ===== */
+.delete-btn {
+  flex: none;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--error);
+  background: transparent;
+  border: 1px solid var(--error);
+}
+
+.delete-btn:hover {
+  color: #fff;
+  background: var(--error);
 }
 
 #expense-list:empty::before {
