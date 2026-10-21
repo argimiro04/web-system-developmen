@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Tracker</title>
+  </head>
+  <body>
+    <!--
+      CONTRATO COMÚN: los id y name de este archivo los usan Persona A y Persona B.
+      No cambiarlos sin avisar al compañero (ver CLAUDE.md).
+    -->
+    <main>
+      <h1>Budget Tracker</h1>
+
+      <form id="expense-form" novalidate>
+        <label>
+          Gasto
+          <input type="text" name="expense-name" placeholder="Ej.: Café" />
+        </label>
+        <label>
+          Importe (€)
+          <input type="number" name="expense-amount" step="0.01" placeholder="Ej.: 2.50" />
+        </label>
+        <button type="submit">Añadir</button>
+      </form>
+
+      <p id="error" role="alert"></p>
+
+      <ul id="expense-list"></ul>
+
+      <p>Total gastado: <span id="total">0.00</span> €</p>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
