@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 
-// Placeholder de la Fase 0 — lo completa la Persona A.
-// <Outlet /> es donde React Router pinta la ruta hija (Catalog, ProductDetail o Cart).
+// Layout es el "marco" común de la app: la ruta padre "/" lo pinta siempre.
+// El Header se queda fijo y <Outlet /> es el hueco donde React Router coloca la ruta hija
+// que coincide con la URL (Catalog, ProductDetail o Cart). Así no repetimos el Header en cada página.
 export default function Layout() {
   return (
     <>
       <Header />
-      <main>
+      <main className="container">
         <Outlet />
       </main>
     </>
