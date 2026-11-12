@@ -6,12 +6,10 @@ import formatPrice from '../utils/formatPrice';
 import './Cart.css';
 
 export default function Cart() {
-  // Context API: el carrito y sus funciones vienen del Provider, no por props.
+  
   const { cartItems, updateQuantity, removeFromCart } = useContext(CartContext);
 
-  // Lifting state up: el nombre del pedido confirmado vive aquí, en el padre, y no en CheckoutForm.
-  // CheckoutForm solo avisa con onOrderPlaced(nombre). Así el mensaje sigue visible
-  // aunque el carrito se quede vacío y el formulario deje de pintarse.
+  
   const [confirmedName, setConfirmedName] = useState('');
 
   // El total no es estado: se calcula en cada render a partir de cartItems con reduce (precio × cantidad).

@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react';
 
 // Context API (diapositiva "Creating the context"): estos valores por defecto solo se usan
-// si un componente lee el contexto fuera del Provider. La interfaz es el contrato (CLAUDE.md, 3.2).
+// si un componente lee el contexto fuera del Provider. La interfaz es el contrato.
 export const CartContext = createContext({
   cartItems: [], addToCart: () => {}, removeFromCart: () => {}, updateQuantity: () => {}, clearCart: () => {},
 });
@@ -11,7 +11,7 @@ export function CartProvider({ children }) {
   // Vive en el Provider (por encima del router), así que navegar entre páginas no lo vacía.
   const [cartItems, setCartItems] = useState([]);
 
-  // Regla de oro (diapositiva "Never Mutate State Directly"): nunca push, splice ni item.quantity++.
+
   // Siempre se crea un array NUEVO (map, filter, concat) y, si cambia una fila, un objeto NUEVO con spread.
   // Así React detecta el cambio y StrictMode no duplica cantidades.
 
@@ -39,7 +39,7 @@ export function CartProvider({ children }) {
   };
 
   const updateQuantity = (id, quantity) => {
-    // Al llegar a 0 (o menos) la fila desaparece: reutilizamos removeFromCart.
+    // Al llegar a 0 o menos la fila desaparece: reutilizamos removeFromCart.
     if (quantity <= 0) {
       removeFromCart(id);
       return;
@@ -54,7 +54,7 @@ export function CartProvider({ children }) {
   };
 
   // El Provider "reparte" el carrito y sus funciones a cualquier componente que esté dentro,
-  // por profundo que esté, sin pasar props de padre a hijo (evita el prop drilling).
+  // por profundo que esté, sin pasar props de padre a hijo.
   return (
     <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart }}>
       {children}
