@@ -2,9 +2,80 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Books API</title>
+    <!-- Contenido estático: lo sirve express.static('public') tal cual está en disco -->
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <h1>Books API — pendiente Persona B</h1>
+    <main>
+      <header>
+        <h1>Books API</h1>
+        <p class="subtitle">Ejercicio 05 · Desarrollo de Sistemas Web</p>
+      </header>
+
+      <section>
+        <h2>¿Qué es?</h2>
+        <p>
+          Una API REST hecha con <strong>Express</strong> para gestionar una lista de libros.
+          Cada libro tiene la forma <code>{ id, title, author }</code> y el <code>id</code> lo
+          genera el servidor. Los datos se guardan en memoria: al reiniciar el servidor vuelven
+          los tres libros iniciales.
+        </p>
+      </section>
+
+      <section>
+        <h2>Endpoints</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Método</th>
+              <th>Ruta</th>
+              <th>Éxito</th>
+              <th>Errores</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td><code>/books</code></td>
+              <td><span class="code ok">200</span> array de libros</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><span class="method post">POST</span></td>
+              <td><code>/books</code></td>
+              <td><span class="code ok">201</span> el libro creado</td>
+              <td><span class="code err">400</span> si falta <code>title</code> o <code>author</code></td>
+            </tr>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td><code>/books/:id</code></td>
+              <td><span class="code ok">200</span> el libro</td>
+              <td><span class="code err">404</span> si no existe</td>
+            </tr>
+            <tr>
+              <td><span class="method delete">DELETE</span></td>
+              <td><code>/books/:id</code></td>
+              <td><span class="code ok">204</span> sin cuerpo</td>
+              <td><span class="code err">404</span> si no existe</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Errores</h2>
+        <p>
+          Todos los errores se devuelven en JSON con la forma <code>{ "error": "..." }</code>.
+          Una ruta que no existe responde <span class="code err">404</span> con
+          <code>{ "error": "unknown endpoint" }</code>.
+        </p>
+      </section>
+
+      <footer>
+        <p>Prueba la API con <code>requests/books.http</code> (extensión REST Client) o con <code>curl</code>.</p>
+      </footer>
+    </main>
   </body>
 </html>
