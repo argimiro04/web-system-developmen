@@ -1,0 +1,88 @@
+# Peticiones de prueba de la Books API (extensión REST Client de VS Code).
+# Arranca el servidor con "npm run dev" y pulsa "Send Request" encima de cada una.
+# Los datos viven en memoria: al reiniciar el servidor vuelven los 3 libros iniciales.
+
+@baseUrl = http://localhost:3000
+
+### 1. Listar todos los libros → 200 + array
+GET {{baseUrl}}/books
+
+### 2. Obtener un libro que existe → 200 + libro
+GET {{baseUrl}}/books/1
+
+### 3. Obtener un libro que no existe → 404 { "error": "book not found" }
+GET {{baseUrl}}/books/999
+
+### 4. Crear un libro válido → 201 + libro con id generado por el servidor
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Dune",
+  "author": "Frank Herbert"
+}
+
+### 5. Crear sin title → 400 { "error": "title or author missing" }
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "author": "Frank Herbert"
+}
+
+### 6. Crear sin author → 400 { "error": "title or author missing" }
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Dune"
+}
+
+### 7. Crear con title solo de espacios → 400 { "error": "title or author missing" }
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "   ",
+  "author": "Frank Herbert"
+}
+
+### 8. Crear con un id y un campo extra → 201, se ignoran (solo id, title, author)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "id": "999",
+  "title": "Neuromancer",
+  "author": "William Gibson",
+  "price": 12
+}
+
+### 9. Crear sin cabecera Content-Type → 400 (no 500): request.body llega undefined
+POST {{baseUrl}}/books
+
+{
+  "title": "Dune",
+  "author": "Frank Herbert"
+}
+
+### 10. Crear con JSON mal formado → 400 { "error": "malformed JSON" } (errorHandler, Persona B)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{ "title":
+
+### 11. Borrar un libro que existe → 204 sin cuerpo
+DELETE {{baseUrl}}/books/2
+
+### 12. Borrar el mismo libro otra vez → 404 { "error": "book not found" }
+DELETE {{baseUrl}}/books/2
+
+### 13. Página de bienvenida → 200 + HTML (express.static, Persona B)
+GET {{baseUrl}}/
+
+### 14. Ruta desconocida con GET → 404 { "error": "unknown endpoint" } (Persona B)
+GET {{baseUrl}}/xyz
+
+### 15. Ruta desconocida con POST → 404 { "error": "unknown endpoint" } (Persona B)
+POST {{baseUrl}}/xyz
