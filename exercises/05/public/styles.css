@@ -1,0 +1,127 @@
+/* Estilos de la página de bienvenida (servida con express.static, igual que index.html) */
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #1f2933;
+  --muted: #616e7c;
+  --border: #e4e7eb;
+  --accent: #3b5bdb;
+  --ok: #2b8a3e;
+  --err: #c92a2a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1rem;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+h1 {
+  margin: 0;
+  color: var(--accent);
+}
+
+h2 {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+}
+
+code {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.05rem 0.35rem;
+  font-size: 0.9em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.method {
+  display: inline-block;
+  min-width: 4.5rem;
+  text-align: center;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.get {
+  background: var(--ok);
+}
+
+.post {
+  background: var(--accent);
+}
+
+.delete {
+  background: var(--err);
+}
+
+.code {
+  font-weight: 700;
+}
+
+.ok {
+  color: var(--ok);
+}
+
+.err {
+  color: var(--err);
+}
+
+footer {
+  margin-top: 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* En móvil la tabla puede desplazarse en horizontal sin romper la página */
+@media (max-width: 600px) {
+  main {
+    padding: 1.25rem;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
